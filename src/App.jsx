@@ -29,6 +29,10 @@ export const App = () => {
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText('');
+    if (incompleteTodos.length >= 4) {
+      setMessage("登録できるtodoは5個までです");
+      return;
+    }
   };
 
   // タスクの削除機能
@@ -36,6 +40,9 @@ export const App = () => {
     const newTodos = [...incompleteTodos];
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
+    if (message === "登録できるtodoは5個までです") {
+      setMessage("");
+    }
   };
 
   // タスクの完了機能
@@ -71,7 +78,6 @@ export const App = () => {
         onClick = {onClickAdd}
         disabled = {incompleteTodos.length >= 5}
       />
-      {incompleteTodos.length >= 5 && <p style={{ color: 'red' }}>登録できるtodoは5個まで</p>}
       <IncompleteTodos todos = {incompleteTodos} onClickComplete = {onClickComplete} onClickDelete = {onClickDelete} />
       <CompleteTodos todos = {completeTodos} onClickBack = {onClickBack}/>
     </>
