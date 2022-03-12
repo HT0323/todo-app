@@ -9,7 +9,7 @@ export const App = () => {
   const onChangeTodoText = (e) => {
     setTodoText(e.target.value)
   };
-　
+
   // タスクの追加機能
   const onClickAdd = () => {
     if (todoText === '') return;
@@ -25,7 +25,7 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   };
 
-    // タスクの完了機能
+  // タスクの完了機能
   const onClickComplete = (index) => {
     // 未完了タスクの更新
     const newIncompleteTodos = [...incompleteTodos];
@@ -35,6 +35,18 @@ export const App = () => {
     // 完了タスクの更新
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
     setCompleteTodos(newCompleteTodos);
+  };
+
+  // タスクを戻す(完了->未完了)機能
+  const onClickBack = (index) => {
+    // 完了タスクの更新
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+    setCompleteTodos(newCompleteTodos);
+
+    // 未完了タスクの更新
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
   };
 
   return (
@@ -60,11 +72,11 @@ export const App = () => {
       <div className="complete-area">
         <p className="title">完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>戻す</button>
+                <button onClick={() => onClickBack(index)}>戻す</button>
               </div>
             )
           })}
