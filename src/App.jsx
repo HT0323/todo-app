@@ -3,19 +3,26 @@ import "./App.css";
 import { CompleteTodos } from "./components/CompleteTodos";
 import { IncompleteTodos } from "./components/IncompleteTodos";
 import { InputTodo } from "./components/InputTodo";
+import { Message } from "./components/Message";
 
 export const App = () => {
   const [todoText, setTodoText] = useState('');
   const [incompleteTodos, setIncompleteTodos] = useState(['task1', 'task2']);
   const [completeTodos, setCompleteTodos] = useState(['task3', 'task4']);
+  const [message, setMessage] = useState('');
 
   const onChangeTodoText = (e) => {
-    setTodoText(e.target.value)
+    setMessage("");
+    setTodoText(e.target.value);
   };
 
   // タスクの追加機能
   const onClickAdd = () => {
     if (todoText === '') return;
+    if (incompleteTodos.includes(todoText) || completeTodos.includes(todoText)) {
+      setMessage("登録済みのタスクは登録できません");
+      return;
+    };
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText('');
@@ -54,6 +61,7 @@ export const App = () => {
 
   return (
     <>
+      {message !== "" && <Message message={message} />}
       <InputTodo
         todoText = {todoText}
         onChange = {onChangeTodoText}

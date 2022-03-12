@@ -64,3 +64,12 @@ li {
   align-items: center;
   padding-bottom: 4px;
 }
+
+.message-area {
+  background-color: #010302;
+  width: 400px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+  color: red;
+}
