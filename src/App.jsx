@@ -18,11 +18,14 @@ export const App = () => {
 
   // タスクの追加機能
   const onClickAdd = () => {
-    if (todoText === '') return;
+    if (todoText === '') {
+      setMessage("文字を入力しないと登録できません");
+      return;
+    }
     if (incompleteTodos.includes(todoText) || completeTodos.includes(todoText)) {
       setMessage("登録済みのタスクは登録できません");
       return;
-    };
+    }
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText('');
